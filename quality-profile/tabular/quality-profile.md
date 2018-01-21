@@ -1,13 +1,13 @@
 # Tabular Data Quality Profile
 
-A Tabular Data Quality Profile is a specialized [Quality Profile](https://github.com/Stephen-Gates/data-quality-measures/quality-profile/tabular-data/quality-profile.md) to describe tabular data resources.
+A Tabular Data Quality Profile is a specialized [Quality Profile](../data-quality-pattern.md) to describe tabular data resources.
 
 Like any Quality Profile, it contains a:
 
-- Measurement File
-- Measurement Schema
-- Metrics File
-- Metrics Schema
+- [Measurement File](#measurement-file)
+- [Measurement Schema](#measurement-schema)
+- [Metrics File](#metrics-file)
+- [Metrics Schema](#metrics-schema)
 
 ## Measurement File
 
@@ -25,7 +25,7 @@ The measurement file contains
 
 - `resource_name` - the `name` of the `resource` being measured
 - `field_name` - the `name` of the `field` being measured. If null, the metric applies to the whole data resource
-- `metric_name` - the `name` of the metric. The associated `category`, `dimension` and `measurement_process` is available at https://example.com/something.extension.
+- `metric_name` - the `name` of the metric.
 
 > Link `metric_name` in **measurement file** schema to `metric_name` in **metric file** schema using `foreignKey`. **metric file** could be a data resources in the same or another data package.
 
@@ -33,7 +33,7 @@ The measurement file contains
 - `value` - an actual value from the data resource or `field`, e.g. minimum-value, maximum-value
 - `annotation` - A statement by the publisher about the measure or value
 
-The `metric_name` has a foreign key relationship with the [Data Quality Model](#data-quality-model-tqp) where it is associated with its `measurement_procedure`, `dimension` and other related properties.
+The `metric_name` has a foreign key relationship with the [Metrics File](#metrics-file) where it is associated with its `measurement_procedure`, `dimension` and other related properties.
 
 Only one of `measure` and `value` should be present in any row.
 
@@ -46,30 +46,21 @@ Only one of `measure` and `value` should be present in any row.
 
 Example
 
-resource_name    |field_name |metric_name  | measure| value              | annotation
------------------|-----------|-------------|--------|--------------------|-----------
-tide-observations|           | row-count   | 1203   |                    |
-tide-observations| height    | completeness| 0.95   |                    | Observations lost on 2018-01-18 due to battery failure
-tide-observations| height    | minimum     |        |                0.62|
-tide-observations| height    | mean        |        |                0.88|
-tide-observations| date-time | minimum     |        | 2014-01-01T01:02:10|
+resource_name    |field_name |metric_name   | measure| value              | annotation
+-----------------|-----------|--------------|--------|--------------------|-----------
+tide-observations|           | row-count    | 1203   |                    |
+tide-observations| height    | completeness | 0.95   |                    | Observations lost on 2018-01-18 due to battery failure
+tide-observations| height    | minimum-value|        |                0.62|
+tide-observations| height    | mean         |        |                0.88|
+tide-observations| date-time | minimum-value|        | 2014-01-01T01:02:10|
 
 ### Measurement Schema
 
-The `schema` that describes the Data Quality File for the Tabular Quality Profile is available at https://github.com/Stephen-Gates/data-quality-pattern/blob/master/quality-profile/tabular/measures/tableschema.json and is shown below:
+The Measurement File is described by a [`schema` available on GitHub](https://github.com/Stephen-Gates/data-quality-pattern/blob/master/quality-profile/tabular/measures/tableschema.json) and is shown below:
 
-> TO DO
-> - Add `foreignKey` to external data package containing the Quality Framework
+#### Tabular Data Measurement Schema
 
-Example: Reference to Tabular Data Measurement Schema
-
-```javascript=
-"schema": "https://example.com/tabular-quality-profile/tableschema.json"
-```
-
-Example: Tabular Data Measurement Schema
-
-```javascript=
+```javascript
 {
   "schema": {
     "fields": [
@@ -91,7 +82,7 @@ Example: Tabular Data Measurement Schema
       },
       {
         "name": "metric_name",
-        "description": "The name of the metric. Associated Category, Dimension and Measurement Process available at https://example.com/something.extension",
+        "description": "The name of the metric",
         "type": "string",
         "constraint": {
           "required": true
@@ -117,8 +108,8 @@ Example: Tabular Data Measurement Schema
       {
         "fields": "metric_name",
         "reference": {
-          "datapackage": "https://example.com/datapackage.json",
-          "resource": "data_resource_name",
+          "datapackage": "https://github.com/Stephen-Gates/data-quality-measures/quality-profile/tabular/metrics/datapackage.json",
+          "resource": "metrics",
           "fields": "metric_name"
         }
       }
@@ -140,76 +131,78 @@ Contains:
 - `metric-name`
 - `metric-description`
 - `measurement-procedure`
-- `dimension-name` *(refer to a list?)*
-- `category-name` *(refer to a list?)*
 
-A category can have many dimensions ==*(drop?)*==
-A dimension can have many metrics
 A metric has a description and measurement procedure
 
 The following table gives examples of statistics that can be computed on a data resource and interpreted as quality measures
 
 Example
 
-category-name | dimension-name | dimension-definition |metric-name |metric-description |measurement-procedure
---------------|----------------|----------------------|------------|-------------------|-----------
-Inherent Data Quality|Completeness|The degree to which subject data associated with an entity has values for all expected attributes and related entity instances in a specific context of use.|Optional Completeness|  | url to equation?
+| metric-name               | metric-description                                                                                 | measurement-procedure                                 |
+|---------------------------|----------------------------------------------------------------------------------------------------|-------------------------------------------------------|
+| row-count                 | Total number of rows in the field                                                                  | Need a way to formally specify measurement procedures |
+| row-sum                   | Sum of all values in the field                                                                     |                                                       |
+| mean                      | Mean (average) of all values in the field                                                          | row-sum / row-count                                   |
+| median                    | Middle number in the sorted list of field values                                                   |                                                       |
+| minimum-value             | "Minimum value found - works for number, integer, date, time, datetime, year, yearmonth, duration" |                                                       |
+| maximum-value             | "Maximum value found - works for number, integer, date, time, datetime, year, yearmonth, duration" |                                                       |
+| standard-deviation        | Standard deviation quantifies the amount of variation across the values in the field               |                                                       |
+| mean-outlier-count        | Count of number of values more than three standard deviations from the mean                        |                                                       |
+| median-outlier-count      | Count of number of values more than three standard deviations from the median                      |                                                       |
+| missing-values-count      | Count of missing values for the field as defined by missingValues                                  |                                                       |
+| null-values-count         | Count of null values for the field                                                                 |                                                       |
+| optional-completeness     | Completeness of a field without a required constraint                                              | (row-count - missing-values-count) / row-count        |
+| invalid-type-format-count | Count of number of values in the field that don't match the type or format defined for the field   |                                                       |
+| invalid-required-count    | Count of number of values in the field that fail the required constraint                           |                                                       |
+| required-count            | Count of number of values in the field that pass the required constraint                           |                                                       |
+| completeness              | proportion of required values in the field                                                         | required-count / row-count                            |
+| invalid-unique-count      | Count of number of values in the field that fail the unique constraint                             |                                                       |
+| unique-count              | Count of number of unique values in the field                                                      |                                                       |
+| uniqueness                | proportion of unique values in the field                                                           | unique-count /row-count                               |
+| minLength-value           | The minimum number of characters in the field                                                      |                                                       |
+| maxLenght-value           | The maximum number of characters in the field                                                      |                                                       |
+| invalid-minLength-count   | Count of number of values in the field that fail the minLength constraint                          |                                                       |
+| invalid-maxLenght-count   | Count of number of values in the field that fail the maxLength constraint                          |                                                       |
+| invalid-pattern-count     | Count of number of values in the field that fail the pattern constraint                            |                                                       |
+| invalid-enum-count        | Count of number of values in the field that fail the enum constraint                               |                                                       |
+| implied-precision         | The maximum number of decimal places in the field                                                  |                                                       |
 
 ### Metrics Schema
 
 - requirements met
 
-```javascript=
+```javascript
 {
   "schema": {
-    "fields": [
-      {
-        "name": "category_name",
-        "description": "The name of the data resource being measured",
-        "type": "string",
-        "constraint": {
-          "required": true
-        }
-      },
-      {
-        "name": "dimension_name",
-        "description": "The name of the field being measured. If null, the metric applies to the whole data resource",
-        "type": "string",
-        "constraint": {
-          "required": true
-        }
-      },
-      {
-        "name": "metric_name",
-        "description": "The name of the metric. Associated Category, Dimension and Measurement Process available at https://example.com/something.extension",
-        "type": "string",
-        "constraint": {
-          "required": true
-        }
-      },
-      {
-        "name": "measurement_procedure",
-        "description": "",
-        "type": "string"
-      },
-      {
-        "name": "metric_description",
-        "description": "",
-        "type": "string"
+    "fields": [{
+      "name": "metric-name",
+      "type": "string",
+      "format": "default",
+      "title": "Metric Name",
+      "constraints": {
+        "required": true,
+        "unique": true
       }
-    ],
-    "foreignKeys": [
-      {
-        "fields": "metric_name",
-        "reference": {
-          "datapackage": "https://example.com/datapackage.json"
-          "resource": "data_resource_name",
-          "fields": "metric_name"
-        }
+    }, {
+      "name": "metric-description",
+      "type": "string",
+      "format": "default",
+      "title": "Metric Description",
+      "constraints": {
+        "required": true
       }
-    ]
-  }
-}
+    }, {
+      "name": "measurement-procedure",
+      "type": "string",
+      "format": "default",
+      "title": "Measurement Procedure",
+      "constraints": {
+        "required": true
+      }
+    }],
+    "missingValues": [""]
+  },
+  "primaryKeys": ["metric-name"]
 ```
 
 
@@ -223,6 +216,6 @@ Inherent Data Quality|Completeness|The degree to which subject data associated w
 [tdp]: https://frictionlessdata.io/specs/tabular-data-package/
 [dr]: http://frictionlessdata.io/specs/data-resource/
 [rs]: https://frictionlessdata.io/specs/data-resource/#resource-schemas
-[tdr]: http://frictionlessdata.io/specs/data-resource/
+[tdr]: http://frictionlessdata.io/specs/tabular-data-resource/
 [ts]: https://frictionlessdata.io/specs/table-schema/
 [csvd]: https://frictionlessdata.io/specs/csv-dialect/
