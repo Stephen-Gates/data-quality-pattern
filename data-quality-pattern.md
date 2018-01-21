@@ -26,12 +26,12 @@ The pattern supports the requirement to:
 The Data Quality Pattern is implemented by:
 
 - calculating quality measures and statistics for a data resource, and optionally providing annotations
-- storing the measurement results in a [measurement file](). The measurement file is defined by its data resource's [`quality`]() property, which includes a [`reference`]() to the data being measured and a [`quality-profile`]()
-- the `quality-profile` specifies a [measurement schema]() and `format` for the measurement file
+- storing the measurement results in a [measurement file](#measurement-file). The measurement file is defined by its data resource's [`quality`](#quality) property, which includes a [`reference`](#reference) to the data being measured and a [`quality-profile`](#quality-profile)
+- the `quality-profile` specifies a [measurement schema](#measurement-schema) and `format` for the measurement file
 -  the measurement schema:
    - describes each field in the measurement file
-   - references a [metrics file]() that describes each metric's `measurement procedure` (how to calculate the data quality measurement or statistic)
--  the metrics file, and its [metrics schema](), can describe either:
+   - references a [metrics file](#metrics-file) that describes each metric's `measurement procedure` (how to calculate the data quality measurement or statistic)
+-  the metrics file, and its [metrics schema](#metrics-schema), can describe either:
    - a shared set of standard data quality metrics
    - a user-defined or domain-specific set of data quality metrics
 - the data resources that describe the data, its data quality measures, and the metric definitions can be stored in one or more data packages, e.g.:
@@ -56,7 +56,7 @@ A directory structure for a data package on disk that contains both a data file 
 ```
 The associated data package descriptor (`datapackage.json`) is shown below. Note the `quality` property for the measurement file.
 
-```javascript=
+```javascript
 {
   "name": "my-data-package",
   "profile": "tabular-data-package",
@@ -137,7 +137,7 @@ A `reference` associates the measurement file with the data resource it measures
 
 Example: The data resource being measured is in a separate data package.
 
-```javascript=
+```javascript
 {
   "quality": {
     "quality-profile": "tabular",
@@ -151,7 +151,7 @@ Example: The data resource being measured is in a separate data package.
 
 Example: The data resource being measured is in the same data package using a custom quality profile.
 
-```javascript=
+```javascript
 {
   "quality": {
     "quality-profile": "http://example.com/my-tableschema.json",
@@ -163,6 +163,8 @@ Example: The data resource being measured is in the same data package using a cu
 ```
 
 ## Quality Profile
+
+TO DO
 
 A Quality Profile is a ...
 
@@ -214,7 +216,7 @@ Schema:
 
 Example: Tabular Data Measurement Schema
 
-```javascript=
+```javascript
 {
   "schema": {
     "fields": [
@@ -236,7 +238,7 @@ Example: Tabular Data Measurement Schema
       },
       {
         "name": "metric_name",
-        "description": "The name of the metric. Associated Category, Dimension and Measurement Process available at https://example.com/something.extension",
+        "description": "The name of the metric.",
         "type": "string",
         "constraint": {
           "required": true
@@ -263,7 +265,7 @@ Example: Tabular Data Measurement Schema
         "fields": "metric_name",
         "reference": {
           "datapackage": "https://example.com/datapackage.json"
-          "resource": "data_resource_name",
+          "resource": "resource_name",
           "fields": "metric_name"
         }
       }
@@ -348,7 +350,6 @@ Data Quality and Statistics draws content and/or inspiration from, among others,
 * [Frictionless Data Specifications][fds]
 * [Data on the Web Best Practices: Data Quality Vocabulary][dqv]
 * [Spatial Data Package Investigation](https://research.okfn.org/spatial-data-package-investigation/)
-
 
 [dqv]: https://www.w3.org/TR/vocab-dqv/
 [fds]: https://frictionlessdata.io/specs/
