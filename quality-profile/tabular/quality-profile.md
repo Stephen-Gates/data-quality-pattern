@@ -1,6 +1,6 @@
 # Tabular Data Quality Profile
 
-A Tabular Data Quality Profile is a specialized [Quality Profile](../data-quality-pattern.md) to describe tabular data resources.
+A Tabular Data Quality Profile is a specialized [Quality Profile](.../data-quality-pattern.md) to describe tabular data resources.
 
 Like any Quality Profile, it contains a:
 
@@ -124,7 +124,6 @@ The Measurement File is described by a [`schema` available on GitHub](https://gi
 
 **File**
 
-External Tabular Data Package published at github/datahub.io (can cache for local processing)
 
 Contains:
 
@@ -136,36 +135,17 @@ A metric has a description and measurement procedure
 
 The following table gives examples of statistics that can be computed on a data resource and interpreted as quality measures
 
-Example
+Example: Metrics File
 
 | metric-name               | metric-description                                                                                 | measurement-procedure                                 |
 |---------------------------|----------------------------------------------------------------------------------------------------|-------------------------------------------------------|
 | row-count                 | Total number of rows in the field                                                                  | Need a way to formally specify measurement procedures |
 | row-sum                   | Sum of all values in the field                                                                     |                                                       |
 | mean                      | Mean (average) of all values in the field                                                          | row-sum / row-count                                   |
-| median                    | Middle number in the sorted list of field values                                                   |                                                       |
 | minimum-value             | "Minimum value found - works for number, integer, date, time, datetime, year, yearmonth, duration" |                                                       |
 | maximum-value             | "Maximum value found - works for number, integer, date, time, datetime, year, yearmonth, duration" |                                                       |
-| standard-deviation        | Standard deviation quantifies the amount of variation across the values in the field               |                                                       |
-| mean-outlier-count        | Count of number of values more than three standard deviations from the mean                        |                                                       |
-| median-outlier-count      | Count of number of values more than three standard deviations from the median                      |                                                       |
-| missing-values-count      | Count of missing values for the field as defined by missingValues                                  |                                                       |
-| null-values-count         | Count of null values for the field                                                                 |                                                       |
-| optional-completeness     | Completeness of a field without a required constraint                                              | (row-count - missing-values-count) / row-count        |
-| invalid-type-format-count | Count of number of values in the field that don't match the type or format defined for the field   |                                                       |
-| invalid-required-count    | Count of number of values in the field that fail the required constraint                           |                                                       |
-| required-count            | Count of number of values in the field that pass the required constraint                           |                                                       |
 | completeness              | proportion of required values in the field                                                         | required-count / row-count                            |
-| invalid-unique-count      | Count of number of values in the field that fail the unique constraint                             |                                                       |
-| unique-count              | Count of number of unique values in the field                                                      |                                                       |
 | uniqueness                | proportion of unique values in the field                                                           | unique-count /row-count                               |
-| minLength-value           | The minimum number of characters in the field                                                      |                                                       |
-| maxLenght-value           | The maximum number of characters in the field                                                      |                                                       |
-| invalid-minLength-count   | Count of number of values in the field that fail the minLength constraint                          |                                                       |
-| invalid-maxLenght-count   | Count of number of values in the field that fail the maxLength constraint                          |                                                       |
-| invalid-pattern-count     | Count of number of values in the field that fail the pattern constraint                            |                                                       |
-| invalid-enum-count        | Count of number of values in the field that fail the enum constraint                               |                                                       |
-| implied-precision         | The maximum number of decimal places in the field                                                  |                                                       |
 
 ### Metrics Schema
 
@@ -204,7 +184,6 @@ Example
   },
   "primaryKeys": ["metric-name"]
 ```
-
 
 ## Copyright and license
 
