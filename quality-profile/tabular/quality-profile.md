@@ -27,9 +27,7 @@ The measurement file contains
 - `field_name` - the `name` of the `field` being measured. If null, the metric applies to the whole data resource
 - `metric_name` - the `name` of the metric. The associated `category`, `dimension` and `measurement_process` is available at https://example.com/something.extension.
 
-:::warning
-Link `metric_name` in **measurement file** schema to `metric_name` in **metric file** schema using `foreignKey`. **metric file** could be a data resources in the same or another data package.
-:::
+> Link `metric_name` in **measurement file** schema to `metric_name` in **metric file** schema using `foreignKey`. **metric file** could be a data resources in the same or another data package.
 
 - `measure` - a calculated value for the data resource or `field`, e.g. column-count, row-count, completeness.
 - `value` - an actual value from the data resource or `field`, e.g. minimum-value, maximum-value
@@ -39,15 +37,12 @@ The `metric_name` has a foreign key relationship with the [Data Quality Model](#
 
 Only one of `measure` and `value` should be present in any row.
 
-:::warning
-Could replace `measure` and `value` with to `measure` and `type`, e.g.
-
-- a `minimum` metric on a `date` column would return `2017-03-31`, `date`
-- a `minimum` metric on a `integer` column would return `45`, `integer`
-
-While this is arguably "cleaner", it prevents the table being validated using the exist Frictionless Data libraries and the Table Schema
-
-:::
+> Could replace `measure` and `value` with to `measure` and `type`, e.g.
+>
+> - a `minimum` metric on a `date` column would return `2017-03-31`, `date`
+> - a `minimum` metric on a `integer` column would return `45`, `integer`
+>
+> While this is arguably "cleaner", it prevents the table being validated using the exist Frictionless > Data libraries and the Table Schema
 
 Example
 
@@ -61,15 +56,10 @@ tide-observations| date-time | minimum     |        | 2014-01-01T01:02:10|
 
 ### Measurement Schema
 
-The `schema` that describes the Data Quality File for the  Tabular Quality Profile is available at https://example.com/tabular-quality-profile/tableschema.json and is shown below:
+The `schema` that describes the Data Quality File for the Tabular Quality Profile is available at https://github.com/Stephen-Gates/data-quality-pattern/blob/master/quality-profile/tabular/measures/tableschema.json and is shown below:
 
-:::warning
-- Should these quality profile table schemas be stored centrally?
-
-- Add `foreignKey` to external data package containing the Quality Framework
-
-- Should this specification list the schema below or provide it at a URL?
-:::
+> TO DO
+> - Add `foreignKey` to external data package containing the Quality Framework
 
 Example: Reference to Tabular Data Measurement Schema
 
@@ -169,11 +159,6 @@ Inherent Data Quality|Completeness|The degree to which subject data associated w
 
 - requirements met
 
-
-:::warning
-Make a snippet. Put it in the Repo
-:::
-
 ```javascript=
 {
   "schema": {
@@ -227,6 +212,13 @@ Make a snippet. Put it in the Repo
 }
 ```
 
+
+## Copyright and license
+
+(c) Stephen Gates and contributors, 2018
+
+[Tabular Data Quality Profile](https://github.com/Stephen-Gates/data-quality-pattern/blob/master/quality-profile/tabular/quality-profile.md) by [Stephen Gates](https://theodi.org.au/stephen-gates/) and [contributors](https://github.com/Stephen-Gates/data-quality-pattern/graphs/contributors) is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/)
+
 [dp]: http://frictionlessdata.io/specs/data-package/
 [tdp]: https://frictionlessdata.io/specs/tabular-data-package/
 [dr]: http://frictionlessdata.io/specs/data-resource/
@@ -234,9 +226,3 @@ Make a snippet. Put it in the Repo
 [tdr]: http://frictionlessdata.io/specs/data-resource/
 [ts]: https://frictionlessdata.io/specs/table-schema/
 [csvd]: https://frictionlessdata.io/specs/csv-dialect/
-
-## Copyright
-
-(c) Stephen Gates, 2018
-
-[Tabular Data Quality Profile](https://github.com/Stephen-Gates/data-quality-measures/specs/tabular-data-quality-profile.md) by [Stephen Gates](https://theodi.org.au/stephen-gates/) is licensed under [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).

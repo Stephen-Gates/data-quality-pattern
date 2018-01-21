@@ -1,9 +1,5 @@
 # Data Quality Pattern
 
-(c) Stephen Gates and contributors, 2018
-
-[Data Quality Pattern](https://github.com/Stephen-Gates/data-quality-pattern) by [Stephen Gates](https://theodi.org.au/stephen-gates/) and [contributors](https://github.com/Stephen-Gates/data-quality-pattern/graphs/contributors) is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/)
-
 #### Language
 
 The key words `MUST`, `MUST NOT`, `REQUIRED`, `SHALL`, `SHALL NOT`, `SHOULD`, `SHOULD NOT`, `RECOMMENDED`, `MAY`, and `OPTIONAL` in this document are to be interpreted as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
@@ -350,6 +346,13 @@ Data Quality and Statistics draws content and/or inspiration from, among others,
 * [Frictionless Data Specifications][fds]
 * [Data on the Web Best Practices: Data Quality Vocabulary][dqv]
 * [Spatial Data Package Investigation](https://research.okfn.org/spatial-data-package-investigation/)
+
+## Copyright and license
+
+(c) Stephen Gates and contributors, 2018
+
+[Data Quality Pattern](https://github.com/Stephen-Gates/data-quality-pattern) by [Stephen Gates](https://theodi.org.au/stephen-gates/) and [contributors](https://github.com/Stephen-Gates/data-quality-pattern/graphs/contributors) is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/)
+
 
 [dqv]: https://www.w3.org/TR/vocab-dqv/
 [fds]: https://frictionlessdata.io/specs/
