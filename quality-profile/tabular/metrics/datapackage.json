@@ -1,0 +1,57 @@
+{
+  "name": "metrics",
+  "title": "Metrics",
+  "description": "Metrics for Tabular Data",
+  "version": "0.0.1",
+  "profile": "tabular-data-package",
+  "licenses": [{
+    "name": "CC-BY-4.0",
+    "title": "Creative Commons Attribution 4.0",
+    "path": "https://creativecommons.org/licenses/by/4.0/"
+  }],
+  "resources": [{
+    "path": "metrics.csv",
+    "name": "metrics",
+    "title": "Metrics",
+    "description": "Metrics for Tabular Data",
+    "profile": "tabular-data-resource",
+    "encoding": "utf-8",
+    "format": "csv",
+    "mediatype": "text/csv",
+    "licenses": [{
+      "name": "CC-BY-4.0",
+      "title": "Creative Commons Attribution 4.0",
+      "path": "https://creativecommons.org/licenses/by/4.0/"
+    }],
+    "schema": {
+      "fields": [{
+        "name": "metric-name",
+        "type": "string",
+        "format": "default",
+        "title": "Metric Name",
+        "constraints": {
+          "required": true,
+          "unique": true
+        }
+      }, {
+        "name": "metric-description",
+        "type": "string",
+        "format": "default",
+        "title": "Metric Description",
+        "constraints": {
+          "required": true
+        }
+      }, {
+        "name": "measurement-procedure",
+        "type": "string",
+        "format": "default",
+        "title": "Measurement Procedure",
+        "constraints": {
+          "required": true
+        }
+      }],
+      "missingValues": [""]
+    },
+    "primaryKeys": ["metric-name"]
+  }]
+}

@@ -1,0 +1,55 @@
+{
+  "schema": {
+    "fields": [
+      {
+        "name": "resource_name",
+        "description": "The name of the data resource being measured",
+        "type": "string",
+        "constraint": {
+          "required": true
+        }
+      },
+      {
+        "name": "field_name",
+        "description": "The name of the field being measured. If null, the metric applies to the whole data resource",
+        "type": "string",
+        "constraint": {
+          "required": true
+        }
+      },
+      {
+        "name": "metric_name",
+        "description": "The name of the metric",
+        "type": "string",
+        "constraint": {
+          "required": true
+        }
+      },
+      {
+        "name": "measure",
+        "description": "calculated value from the data points in the resource_name, field_name",
+        "type": "number"
+      },
+      {
+        "name": "value",
+        "description": "actual value of a data point in the resource_name, field_name",
+        "type": "any"
+      },
+      {
+        "name": "annotation",
+        "description": "A statement by the publisher about the measure or value",
+        "type": "string"
+      }
+    ],
+    "foreignKeys": [
+      {
+        "fields": "metric_name",
+        "reference": {
+          "datapackage": "https://github.com/Stephen-Gates/data-quality-measures/quality-profile/tabular/metrics/datapackage.json",
+          "resource": "metrics",
+          "fields": "metric_name"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+[
+  {
+    "id": "tabular",
+    "title": "Tabular Data Quality Profile",
+    "table_schema_path": "https://github.com/Stephen-Gates/data-quality-pattern/quality-profile/tabular/measures/tableschema.json",
+    "specification": "https://github.com/Stephen-Gates/data-quality-pattern/quality-profile/tabular/quality-profile.md"
+  }
+]
