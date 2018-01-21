@@ -360,4 +360,4 @@ Data Quality and Statistics draws content and/or inspiration from, among others,
 [tdr]: http://frictionlessdata.io/specs/tabular-data-resource/
 [ts]: https://frictionlessdata.io/specs/table-schema/
 [csvd]: https://frictionlessdata.io/specs/csv-dialect/
-[tdqp]: https://github.com/Stephen-Gates/data-quality-pattern/tabular-data-quality-profile.md
+[tdqp]: /quality-profile/tabular/quality-profile.md
