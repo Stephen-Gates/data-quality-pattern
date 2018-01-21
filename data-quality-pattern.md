@@ -110,19 +110,19 @@ The `quality` property supports the requirement to discover data packages and da
 
 The `quality` property MUST be a JSON `object` and MUST include:
 
-- `quality-profile` - determines which [Quality Profile](#quality-profile) to apply
+- `quality-profile` - determines which [Quality Profile](#quality-profiles) to apply
 - `reference` - a reference to the data resource being measured. The data resource may be in the same, or another data package
 
 ##### `quality-profile`
 
-`quality-profile` is a `string` identifying the profile that describes a measurement file using a [Table Schema](ts).
+`quality-profile` is a `string` identifying the profile that describes a measurement file using a [Table Schema][ts].
 
 This unique identifier MUST be a string and can be in one of two forms, either:
 
-1. an `id` from the official [Quality Profile Registry](https://github.com/Stephen-Gates/data-quality-pattern/registry/registry.json)
-2. a fully-qualified URL that points directly to a Table Schema that conforms with the [Quality Profile](#quality-profile).
+1. an `id` from the official [Quality Profile Registry](https://raw.githubusercontent.com/Stephen-Gates/data-quality-pattern/master/registry/registry.json)
+2. a fully-qualified URL that points directly to a Table Schema that conforms with the [Quality Profile](#quality-profiles).
 
-As part of the Frictionless Data Specifications project, we publish quality profiles e.g. the [Tabular Data Quality Profile](#tabular-data-quality-profile). Other quality profiles to support spatial and fiscal data are anticipated.
+As part of the Frictionless Data Specifications project, we publish quality profiles e.g. the [Tabular Data Quality Profile][tdqp]. Other quality profiles to support spatial and fiscal data are anticipated.
 
 Quality profiles can be specified to support user-defined or domain-specific data quality metrics and statistics. The creation of many different Quality Profiles may inhibit the ability to compare data quality measures and statistics across data resources.
 
@@ -162,7 +162,7 @@ Example: The data resource being measured is in the same data package using a cu
 }
 ```
 
-## Quality Profile
+## Quality Profiles
 
 TO DO
 
@@ -357,7 +357,7 @@ Data Quality and Statistics draws content and/or inspiration from, among others,
 [tdp]: https://frictionlessdata.io/specs/tabular-data-package/
 [dr]: http://frictionlessdata.io/specs/data-resource/
 [rs]: https://frictionlessdata.io/specs/data-resource/#resource-schemas
-[tdr]: http://frictionlessdata.io/specs/data-resource/
+[tdr]: http://frictionlessdata.io/specs/tabular-data-resource/
 [ts]: https://frictionlessdata.io/specs/table-schema/
 [csvd]: https://frictionlessdata.io/specs/csv-dialect/
 [tdqp]: https://github.com/Stephen-Gates/data-quality-pattern/tabular-data-quality-profile.md
