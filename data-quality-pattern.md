@@ -177,7 +177,7 @@ A Quality Profile, through its registry entry, provides a link to a *"schema"* t
 - the `foreignKeys` link to the `metric-name` `field` in the metrics data package MUST be present
 
 ## Measurements
-### Measurements file
+### Measurement file
 
 The measurement file SHOULD be called the `name` of the data resource it is measuring, followed by `_quality-measures` and an appropriate file extension for the file `format`.
 
@@ -273,7 +273,7 @@ The metrics file MUST contain the `fields`:
 
 - `metric-name` - the name of the standard being used to measure a data quality dimension or statistic
 - `metric-description` - a brief description of the standard being used to measure a data quality dimension or statistic
-- `measurement-procedure` - the steps or formula used to calculate a measurement value for a specific metric 
+- `measurement-procedure` - the steps or formula used to calculate a measurement value for a specific metric
 
 The metrics file MAY contain additional `fields`, e.g. from [ISO/IEC 25012](https://www.w3.org/TR/vocab-dqv/#DimensionsOfISOIEC25012):
 
