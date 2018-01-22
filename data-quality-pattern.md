@@ -33,7 +33,7 @@ The Data Quality Pattern is implemented by:
 
 ![Overview of Data Quality Pattern](https://raw.githubusercontent.com/Stephen-Gates/data-quality-pattern/master/img/data-quality-pattern.PNG)
 
-- the data resources that describe the data, its data quality measures, and the metric definitions can be stored in one or more data packages, e.g.:
+- the data resources that describe the data, its data quality measures, and the metric definitions can be stored in one or more data packages, e.g.
   1. An automated data quality checker may store each resource in its own data package:
      - leaving the data that was measured, and its data package, unchanged
      - store the data quality measures in it's own data package
@@ -58,7 +58,9 @@ A directory structure for a data package on disk that:
 |   |- my-data_quality-measures.csv
 |
 ```
-The associated data package descriptor (`datapackage.json`) is shown below. Note the `quality` property for the measurement file.
+The associated data package descriptor (`datapackage.json`) is shown below. Note the:
+- the `schema` for `my-data_quality-measures` establishes the `foreignKeys` link to the metrics file
+- the `quality` property for `my-data_quality-measures` ensures the `schema` contains the correct `fields` and metrics data package link.
 
 ```javascript
 {
@@ -66,7 +68,7 @@ The associated data package descriptor (`datapackage.json`) is shown below. Note
   "profile": "tabular-data-package",
   "resources": [
     {
-      "name": "data_quality-measures",
+      "name": "my-data_quality-measures",
       "path": "data/my-data_quality-measures.csv",
       "profile": "tabular-data-resource",
       "schema": "https://example.com/tableschema.json",
@@ -97,10 +99,11 @@ The associated data package descriptor (`datapackage.json`) is shown below. Note
 
 ### Descriptor
 
-Data quality measures are represented by a specialized [Data Resource][dr] descriptor. The data resource descriptor MUST:
+Data quality measures are represented by a specialized [Tabular Data Resource][tdr] descriptor. The  resource descriptor MUST:
 
 - conform to the [Tabular Data Resource][tdr] specification
 - include a `quality` property
+- include a `schema` that conforms to the [Quality Profile](#quality-profiles) specification
 
 ### Metadata
 
@@ -124,7 +127,7 @@ The `quality` property MUST be a JSON `object` and MUST include:
 This unique identifier MUST be a string and can be in one of two forms, either:
 
 1. an `id` from the official [Quality Profile Registry](https://raw.githubusercontent.com/Stephen-Gates/data-quality-pattern/master/registry/registry.json)
-2. a fully-qualified URL that points directly to a Table Schema that conforms with the [Quality Profile](#quality-profiles).
+2. a fully-qualified URL that points directly to a *"schema"* that conforms with the [Quality Profile](#quality-profiles).
 
 As part of the Frictionless Data Specifications project, we publish quality profiles e.g. the [Tabular Data Quality Profile][tdqp]. Other quality profiles to support spatial and fiscal data are anticipated.
 
@@ -168,57 +171,36 @@ Example: The data resource being measured is in the same data package using a cu
 
 ## Quality Profiles
 
-A Quality Profile supports the requirement to:
+A Quality Profile, through its registry entry, provides a link to a *"schema"* to validate the measurement file's `schema`, testing that:
 
-- associate data quality measures with a set of documented, objective  data quality metrics and statistics
-- support user-defined or domain-specific data quality metrics and statistics
-- compare data quality measures and statistics across data resources
+- the required measurement `fields` MUST be present
+- the `foreignKeys` link to the `metric-name` `field` in the metrics data package MUST be present
 
-A Quality Profile is an entry in a registry that provides a tableschema.json for the measurement file.
-- defines the fields to use in measurement file
-- foreign key to metric-name, data resource, data package
+## Measurements
+### Measurements file
 
-A Quality Profile defines the:
+The measurement file SHOULD be called the `name` of the data resource it is measuring, followed by `_quality-measures` and an appropriate file extension for the file `format`.
 
-- [Measurement File](#measurement-file)
-- [Measurement Schema](#measurement-schema)
-- [Metrics File](#metrics-file)
-- [Metrics Schema](#metrics-schema)
+For example, if the data resource being measured has `"name": "budget-2018"`, the associated measurement file and data resource would be:
 
-### Measurement File
+- measurement filename - `budget-2018_quality-measures.csv`
+- data resource `name` - `budget-2018-quality-measures`
 
-#### Fields
+### Measurement schema
 
-The data resource descriptor that describes the measurement file MUST be a [Data Resource][dr] described by a [Resource Schema][rs]
-
-The measurement file MUST contain the `fields`:
+The measurement file `schema` MUST contain the `fields`:
 
 - `resource-name` - `name` of the data resource being measured
-- `field-name` - `name` of the `field` being measured
-- `metric-name` - a standard way to measure a quality dimension
-- `measure` - the evaluation of a values in a `field` against a specific quality metric or statistic
-- annotation - a statement from the publisher commenting about the `quality measure` in markdown or text
+- `field-name` - `name` of the `field` in the data resource being measured
+- `metric-name` - the name of a metric used measure a data quality or statistic
+- `measure` - the numeric result of a `measurement-procedure` performed on the values in a `field`
+- `value` - the result of a `measurement-procedure` performed on the values in a `field` that returns one of the `field` values. E.g. The minimum metric performed on a `field` of `type` `year` would return the smallest year value found in the column of data
+- *`type` and `format`? - (would it be useful to return the `type` and `format` of the `value`?)*
+- `annotation` - a statement from the publisher commenting about the `measure` or `value` in markdown or text
 
-The measurement file MAY contain additional `fields`.
+The measurement file `schema` MAY contain additional `fields`.
 
-#### File and Resource Name
-
-The measurement file SHOULD be called the data resource `name` followed by `_quality-measures` and the appropriate file extension for the file `format`.
-
-For example, for the data resource with `"name": "budget-2018"`, the associated:
-
-- data quality file name should be `budget-2018-quality.csv`
-- data resource `name` should be `budget-2018-quality`
-
-### Measurement Schema
-
-The Measurement Schema... @todo
-
-Schema:
-- describe `fields`
-- add `foreignKey` link to [Metrics File](#metrics-file)
-
-Example: Tabular Data Measurement Schema
+Example: Measurement Schema
 
 ```javascript
 {
@@ -278,11 +260,14 @@ Example: Tabular Data Measurement Schema
 }
 ```
 
-### Metrics File
+## Metrics
 
-The metrics file... @todo
+### Metrics file
 
-#### Fields
+The metrics file SHOULD be called `metrics.csv`.
+The data resource `name` SHOULD be called `metrics`.
+
+### Metrics schema
 
 The metrics file MUST contain the `fields`:
 
@@ -292,17 +277,10 @@ The metrics file MUST contain the `fields`:
 
 The metrics file MAY contain additional `fields`, e.g. from [ISO/IEC 25012](https://www.w3.org/TR/vocab-dqv/#DimensionsOfISOIEC25012):
 
-- dimension - a criteria relevant for assessing quality, e.g. Completeness
-- category - a group of quality dimensions in which a common type of information is used as quality indicator, e.g. Inherent Data Quality
+- `dimension` - a criteria relevant for assessing quality, e.g. Completeness
+- `category` - a group of quality dimensions in which a common type of information is used as quality indicator, e.g. Inherent Data Quality
 
-#### File and Resource Name
-
-The metrics file SHOULD be called `metrics.csv`.
-The data resource `name` SHOULD be called `metrics`.
-
-### Metrics Schema
-
-The Metrics Schema... @todo
+Example: Metrics Schema
 
 ```
     "schema": {
@@ -342,7 +320,7 @@ The Metrics Schema... @todo
 There are no known implementations.
 
 It is envisaged that:
-- [Goodtables.io](http://goodtables.io) could be extended to assess a whole data resource and its `fields` to calculate data quality measures. An approach to perform [advanced checks](https://github.com/frictionlessdata/goodtables-py#advanced-checks) has already been implemented
+- [Goodtables.io](http://goodtables.io) could be extended to calculate data quality measures and statistics for the `fields` in a data resource. An approach to performing [advanced checks](https://github.com/frictionlessdata/goodtables-py#advanced-checks) has already been implemented
 - existing [Frictionless Data software libraries](https://frictionlessdata.io/software/) could assist with implementation
 
 ## Appendix: Related Work
