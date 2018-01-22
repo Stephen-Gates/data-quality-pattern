@@ -21,11 +21,13 @@ The pattern supports the requirement to:
 
 The Data Quality Pattern is implemented by:
 
-- calculating quality measures and statistics for a data resource, and optionally providing annotations
+![Overview of Data Quality Pattern](/img/data-quality-pattern.png)
+
+- calculating data quality measures and statistics for a data resource, and optionally providing annotations
 - storing the measurement results in a [measurement file](#measurement-file). The measurement file is defined by its data resource's [`quality`](#quality) property, which includes a [`reference`](#reference) to the data being measured and a [`quality-profile`](#quality-profile)
-- the `quality-profile` specifies a [measurement schema](#measurement-schema) and `format` for the measurement file
+- the `quality-profile` specifies a [measurement schema](#measurement-schema) for the measurement file
 -  the measurement schema:
-   - describes each field in the measurement file
+   - describes each `field` in the measurement file
    - references a [metrics file](#metrics-file) that describes each metric's `measurement procedure` (how to calculate the data quality measurement or statistic)
 -  the metrics file, and its [metrics schema](#metrics-schema), can describe either:
    - a shared set of standard data quality metrics
@@ -33,8 +35,9 @@ The Data Quality Pattern is implemented by:
 - the data resources that describe the data, its data quality measures, and the metric definitions can be stored in one or more data packages, e.g.:
   1. An automated data quality checker may store each resource in its own data package:
      - leaving the data that was measured, and its data package, unchanged
-     - referencing standard metric definitions in a shared data package
-  2. A data publisher may store the data and its data quality measures in one data package, and reference metric definitions in a shared data package
+     - store the data quality measures in it's own data package
+     - store, or reference, metric definitions in another data package
+  2. A data publisher may store the data and its data quality measures in one data package, and reference standard metric definitions in a shared data package
   3. the data may be stored in its own data package, and its data quality measures and user-defined metric definitions stored in another data package
   4. all resources may be stored in one data package
 
