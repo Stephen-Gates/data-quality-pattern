@@ -271,9 +271,9 @@ The data resource `name` SHOULD be called `metrics`.
 
 The metrics file MUST contain the `fields`:
 
-- `metric-name` - TO DO
-- `metric-description` - TO DO
-- `measurement-procedure` - TO DO
+- `metric-name` - the name of the standard being used to measure a data quality dimension or statistic
+- `metric-description` - a brief description of the standard being used to measure a data quality dimension or statistic
+- `measurement-procedure` - the steps or formula used to calculate a measurement value for a specific metric 
 
 The metrics file MAY contain additional `fields`, e.g. from [ISO/IEC 25012](https://www.w3.org/TR/vocab-dqv/#DimensionsOfISOIEC25012):
 
