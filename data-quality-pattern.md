@@ -21,8 +21,6 @@ The pattern supports the requirement to:
 
 The Data Quality Pattern is implemented by:
 
-![Overview of Data Quality Pattern](https://raw.githubusercontent.com/Stephen-Gates/data-quality-pattern/master/img/data-quality-pattern.PNG)
-
 - calculating data quality measures and statistics for a data resource, and optionally providing annotations
 - storing the measurement results in a [measurement file](#measurement-file). The measurement file is defined by its data resource's [`quality`](#quality) property, which includes a [`reference`](#reference) to the data being measured and a [`quality-profile`](#quality-profile)
 - the `quality-profile` specifies a [measurement schema](#measurement-schema) for the measurement file
@@ -32,6 +30,9 @@ The Data Quality Pattern is implemented by:
 -  the metrics file, and its [metrics schema](#metrics-schema), can describe either:
    - a shared set of standard data quality metrics
    - a user-defined or domain-specific set of data quality metrics
+
+![Overview of Data Quality Pattern](https://raw.githubusercontent.com/Stephen-Gates/data-quality-pattern/master/img/data-quality-pattern.PNG)
+
 - the data resources that describe the data, its data quality measures, and the metric definitions can be stored in one or more data packages, e.g.:
   1. An automated data quality checker may store each resource in its own data package:
      - leaving the data that was measured, and its data package, unchanged
@@ -43,14 +44,14 @@ The Data Quality Pattern is implemented by:
 
 ### Illustrative Structure
 
-A directory structure for a data package on disk that contains both a data file (`my-data.csv`) and its measurement file (`my-data-quality-measures.csv`) is:
+A directory structure for a data package on disk that contains both a data file (`my-data.csv`) and its measurement file (`my-data_quality-measures.csv`) is:
 
 ```
 |- datapackage.json
 |- README.md
 |- data
 |   |- my-data.csv
-|   |- my-data-quality-measures.csv
+|   |- my-data_quality-measures.csv
 |
 ```
 The associated data package descriptor (`datapackage.json`) is shown below. Note the `quality` property for the measurement file.
@@ -61,8 +62,8 @@ The associated data package descriptor (`datapackage.json`) is shown below. Note
   "profile": "tabular-data-package",
   "resources": [
     {
-      "name": "data-quality-measures",
-      "path": "data/my-data-quality-measures.csv",
+      "name": "data_quality-measures",
+      "path": "data/my-data_quality-measures.csv",
       "profile": "tabular-data-resource",
       "schema": "https://example.com/tableschema.json",
       "quality": {
@@ -163,15 +164,13 @@ Example: The data resource being measured is in the same data package using a cu
 
 ## Quality Profiles
 
-TO DO
-
-A Quality Profile is a ...
-
 A Quality Profile supports the requirement to:
 
 - associate data with a set of documented, objective  data quality metrics and statistics
 - support user-defined or domain-specific data quality metrics and statistics
 - compare data quality measures and statistics across data resources
+
+A Quality Profile is... @todo
 
 A Quality Profile contains:
 
@@ -207,7 +206,7 @@ For example, for the data resource with `"name": "budget-2018"`, the associated:
 
 ### Measurement Schema
 
-TO DO
+The Measurement Schema... @todo
 
 Schema:
 - describe `fields`
@@ -275,7 +274,7 @@ Example: Tabular Data Measurement Schema
 
 ### Metrics File
 
-TO DO
+The metrics file... @todo
 
 #### Fields
 
@@ -297,9 +296,7 @@ The data resource `name` SHOULD be called `metrics`.
 
 ### Metrics Schema
 
-TO DO
-
-Explanation
+The Metrics Schema... @todo
 
 ```
     "schema": {
