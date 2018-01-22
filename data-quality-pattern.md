@@ -21,7 +21,7 @@ The pattern supports the requirement to:
 
 The Data Quality Pattern is implemented by:
 
-![Overview of Data Quality Pattern](https://raw.githubusercontent.com/Stephen-Gates/data-quality-pattern/master/img/data-quality-pattern.png)
+![Overview of Data Quality Pattern](https://raw.githubusercontent.com/Stephen-Gates/data-quality-pattern/master/img/data-quality-pattern.PNG)
 
 - calculating data quality measures and statistics for a data resource, and optionally providing annotations
 - storing the measurement results in a [measurement file](#measurement-file). The measurement file is defined by its data resource's [`quality`](#quality) property, which includes a [`reference`](#reference) to the data being measured and a [`quality-profile`](#quality-profile)
