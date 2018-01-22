@@ -23,7 +23,7 @@ The Data Quality Pattern is implemented by:
 
 - calculating data quality measures and statistics for a data resource, and optionally providing annotations
 - storing the measurement results in a [measurement file](#measurement-file). The measurement file is defined by its data resource's [`quality`](#quality) property, which includes a [`reference`](#reference) to the data being measured and a [`quality-profile`](#quality-profile)
-- the `quality-profile` specifies a [measurement schema](#measurement-schema) for the measurement file
+- the `quality-profile`, via a registry, specifies a [measurement schema](#measurement-schema) for the measurement file
 -  the measurement schema:
    - describes each `field` in the measurement file
    - references a [metrics file](#metrics-file) that describes each metric's `measurement procedure` (how to calculate the data quality measurement or statistic)
@@ -44,7 +44,11 @@ The Data Quality Pattern is implemented by:
 
 ### Illustrative Structure
 
-A directory structure for a data package on disk that contains both a data file (`my-data.csv`) and its measurement file (`my-data_quality-measures.csv`) is:
+A directory structure for a data package on disk that:
+
+- contains a data file (`my-data.csv`)
+- contains a measurement file (`my-data_quality-measures.csv`)
+- references a metrics file in another data package
 
 ```
 |- datapackage.json
@@ -166,13 +170,15 @@ Example: The data resource being measured is in the same data package using a cu
 
 A Quality Profile supports the requirement to:
 
-- associate data with a set of documented, objective  data quality metrics and statistics
+- associate data quality measures with a set of documented, objective  data quality metrics and statistics
 - support user-defined or domain-specific data quality metrics and statistics
 - compare data quality measures and statistics across data resources
 
-A Quality Profile is... @todo
+A Quality Profile is an entry in a registry that provides a tableschema.json for the measurement file.
+- defines the fields to use in measurement file
+- foreign key to metric-name, data resource, data package
 
-A Quality Profile contains:
+A Quality Profile defines the:
 
 - [Measurement File](#measurement-file)
 - [Measurement Schema](#measurement-schema)
