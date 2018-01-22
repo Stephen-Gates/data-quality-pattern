@@ -1,5 +1,7 @@
 # Tabular Data Quality Profile
 
+@todo rework this to match data-quality-pattern 
+
 A Tabular Data Quality Profile is a specialized [Quality Profile](https://github.com/Stephen-Gates/data-quality-pattern/blob/master/data-quality-pattern.md#quality-profiles) to describe tabular data resources.
 
 Like any Quality Profile, it contains a:
