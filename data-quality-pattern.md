@@ -4,14 +4,13 @@
 
 The key words `MUST`, `MUST NOT`, `REQUIRED`, `SHALL`, `SHALL NOT`, `SHOULD`, `SHOULD NOT`, `RECOMMENDED`, `MAY`, and `OPTIONAL` in this document are to be interpreted as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt).
 
-
 ## Introduction
 
 Data Quality Pattern is a proposed [Frictionless Data Pattern](https://frictionlessdata.io/specs/patterns/).
 
 Data Quality Pattern is a consistent, but flexible, way to describe the data quality measures and statistics of a [Data Resource][dr].
 
-The pattern supports the requirement to:
+The pattern supports the requirements ([from user stories](user-stories.md)) to:
 
 - associate data with data quality measures and annotations
 - associate data quality measures with a set of documented, objective data quality metrics
