@@ -45,7 +45,7 @@
       {
         "fields": "metric_name",
         "reference": {
-          "datapackage": "https://github.com/Stephen-Gates/data-quality-measures/quality-profile/tabular/metrics/datapackage.json",
+          "datapackage":  "https://github.com/Stephen-Gates/data-quality-pattern/quality-profile/tabular/metrics/datapackage.json",
           "resource": "metrics",
           "fields": "metric_name"
         }

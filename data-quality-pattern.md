@@ -160,7 +160,7 @@ Example: The data resource being measured is in the same data package using a cu
 ```javascript
 {
   "quality": {
-    "quality-profile": "http://example.com/my-tableschema.json",
+    "quality-profile": "http://example.com/my-profile-tableschema.json",
     "reference": {
       "resource": "resource-name"
     }
@@ -183,7 +183,7 @@ The measurement file SHOULD be called the `name` of the data resource it is meas
 For example, if the data resource being measured has `"name": "budget-2018"`, the associated measurement file and data resource would be:
 
 - measurement filename - `budget-2018_quality-measures.csv`
-- data resource `name` - `budget-2018-quality-measures`
+- data resource `name` - `budget-2018_quality-measures`
 
 ### Measurement schema
 
