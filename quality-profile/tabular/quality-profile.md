@@ -1,19 +1,13 @@
 # Tabular Data Quality Profile
 
-@todo rework this to match data-quality-pattern 
-
 A Tabular Data Quality Profile is a specialized [Quality Profile](https://github.com/Stephen-Gates/data-quality-pattern/blob/master/data-quality-pattern.md#quality-profiles) to describe tabular data resources.
 
-Like any Quality Profile, it contains a:
+The Quality Profile describes [Measurements](#measurements) and [Metrics](#metrics).
 
-- [Measurement File](#measurement-file)
-- [Measurement Schema](#measurement-schema)
-- [Metrics File](#metrics-file)
-- [Metrics Schema](#metrics-schema)
+## Measurements
+### Measurement file
 
-## Measurement File
-
-**Descriptor**
+#### Descriptor
 
 The data resource descriptor that describes the measurement file:
 
@@ -21,32 +15,20 @@ The data resource descriptor that describes the measurement file:
 - MUST be described by the [Measurement Schema](#measurement-schema)
 - MAY include a CSV dialect, if required
 
-**File**
+#### File
 
-The measurement file contains
+The measurement file MUST contain the `fields`:
 
 - `resource_name` - the `name` of the `resource` being measured
 - `field_name` - the `name` of the `field` being measured. If null, the metric applies to the whole data resource
-- `metric_name` - the `name` of the metric.
-
-> Link `metric_name` in **measurement file** schema to `metric_name` in **metric file** schema using `foreignKey`. **metric file** could be a data resources in the same or another data package.
-
+- `metric_name` - the `name` of the metric. The `metric-name` has a foreign key relationship with the [Metrics File](#metrics-file) where it is associated with its `measurement-procedure`.
 - `measure` - a calculated value for the data resource or `field`, e.g. column-count, row-count, completeness.
 - `value` - an actual value from the data resource or `field`, e.g. minimum-value, maximum-value
 - `annotation` - A statement by the publisher about the measure or value
 
-The `metric_name` has a foreign key relationship with the [Metrics File](#metrics-file) where it is associated with its `measurement_procedure`, `dimension` and other related properties.
+Only one of `measure` or `value` should be present in any row.
 
-Only one of `measure` and `value` should be present in any row.
-
-> Could replace `measure` and `value` with to `measure` and `type`, e.g.
->
-> - a `minimum` metric on a `date` column would return `2017-03-31`, `date`
-> - a `minimum` metric on a `integer` column would return `45`, `integer`
->
-> While this is arguably "cleaner", it prevents the table being validated using the exist Frictionless > Data libraries and the Table Schema
-
-Example
+##### Example
 
 resource_name    |field_name |metric_name   | measure| value              | annotation
 -----------------|-----------|--------------|--------|--------------------|-----------
@@ -58,16 +40,16 @@ tide-observations| date-time | minimum-value|        | 2014-01-01T01:02:10|
 
 ### Measurement Schema
 
-The Measurement File is described by a [`schema` available on GitHub](https://github.com/Stephen-Gates/data-quality-pattern/blob/master/quality-profile/tabular/measures/tableschema.json) and is shown below:
+The Measurement File is described by a [`schema`](/measures/tableschema.json):
 
-#### Tabular Data Measurement Schema
+> @todo import from file
 
 ```javascript
 {
   "schema": {
     "fields": [
       {
-        "name": "resource_name",
+        "name": "resource-name",
         "description": "The name of the data resource being measured",
         "type": "string",
         "constraint": {
@@ -75,7 +57,7 @@ The Measurement File is described by a [`schema` available on GitHub](https://gi
         }
       },
       {
-        "name": "field_name",
+        "name": "field-name",
         "description": "The name of the field being measured. If null, the metric applies to the whole data resource",
         "type": "string",
         "constraint": {
@@ -83,7 +65,7 @@ The Measurement File is described by a [`schema` available on GitHub](https://gi
         }
       },
       {
-        "name": "metric_name",
+        "name": "metric-name",
         "description": "The name of the metric",
         "type": "string",
         "constraint": {
@@ -108,11 +90,11 @@ The Measurement File is described by a [`schema` available on GitHub](https://gi
     ],
     "foreignKeys": [
       {
-        "fields": "metric_name",
+        "fields": "metric-name",
         "reference": {
-          "datapackage": "https://github.com/Stephen-Gates/data-quality-measures/quality-profile/tabular/metrics/datapackage.json",
+          "datapackage": "https://github.com/Stephen-Gates/data-quality-pattern/quality-profile/tabular/metrics/datapackage.json",
           "resource": "metrics",
-          "fields": "metric_name"
+          "fields": "metric-name"
         }
       }
     ]
@@ -120,24 +102,31 @@ The Measurement File is described by a [`schema` available on GitHub](https://gi
 }
 ```
 
-### Metrics File
+### Metrics
+#### Metrics File
 
-**Descriptor**
+##### Descriptor
 
-**File**
+The data resource descriptor that describes the metrics file:
 
+- MUST have the `name`, `"metrics"`
+- MUST be a [Tabular Data Resource][tdr]
+- MUST be described by the [Metrics Schema](#metrics-schema) within a data package
+- MAY include a CSV dialect, if required
 
-Contains:
+##### File
 
-- `metric-name`
-- `metric-description`
-- `measurement-procedure`
+The metrics file MUST be called `metrics.csv`.
 
-A metric has a description and measurement procedure
+The metrics file is described by the [metrics schema](/metrics/datapackage.json) and MUST contain the `fields`:
 
-The following table gives examples of statistics that can be computed on a data resource and interpreted as quality measures
+- `metric-name` - the name of the standard being used to measure a data quality dimension or statistic
+- `metric-description` - a brief description of the standard being used to measure a data quality dimension or statistic
+- `measurement-procedure` - the steps or formula used to calculate a measurement value for a specific metric
 
-Example: Metrics File
+The following table gives examples of statistics that can be computed on a data resource and interpreted as quality measures.
+
+##### Example: Metrics File
 
 | metric-name               | metric-description                                                                                 | measurement-procedure                                 |
 |---------------------------|----------------------------------------------------------------------------------------------------|-------------------------------------------------------|
@@ -149,9 +138,11 @@ Example: Metrics File
 | completeness              | proportion of required values in the field                                                         | required-count / row-count                            |
 | uniqueness                | proportion of unique values in the field                                                           | unique-count /row-count                               |
 
-### Metrics Schema
+#### Metrics Schema
 
-- requirements met
+The metrics file is described by [`schema`](/metrics/datapackage.json) within the metrics data package.
+
+> @todo import from file
 
 ```javascript
 {

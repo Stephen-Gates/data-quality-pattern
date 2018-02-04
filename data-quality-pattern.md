@@ -141,7 +141,7 @@ A `reference` associates the measurement file with the data resource it measures
 - MUST have a  `resource` property which is `string` that identifies the `name` of the data resource in the data package being measured.
 - MAY have a `datapackage` property which is a `url` that fully resolves the location of a `datapackage.json` file that  describes an external data package. If the `datapackage` property is omitted or is an empty string, then the location is the current data package.
 
-Example: The data resource being measured is in a separate data package.
+##### Example: The data resource being measured is in a separate data package.
 
 ```javascript
 {
@@ -155,7 +155,7 @@ Example: The data resource being measured is in a separate data package.
 }
 ```
 
-Example: The data resource being measured is in the same data package using a custom quality profile.
+##### Example: The data resource being measured is in the same data package using a custom quality profile.
 
 ```javascript
 {
@@ -199,7 +199,7 @@ The measurement file `schema` MUST contain the `fields`:
 
 The measurement file `schema` MAY contain additional `fields`.
 
-Example: Measurement Schema
+##### Example: Measurement Schema
 
 ```javascript
 {
@@ -268,7 +268,7 @@ The data resource `name` SHOULD be called `metrics`.
 
 ### Metrics schema
 
-The metrics file MUST contain the `fields`:
+The metrics file is described by the metrics schema and MUST contain the `fields`:
 
 - `metric-name` - the name of the standard being used to measure a data quality dimension or statistic
 - `metric-description` - a brief description of the standard being used to measure a data quality dimension or statistic
@@ -279,7 +279,7 @@ The metrics file MAY contain additional `fields`, e.g. from [ISO/IEC 25012](http
 - `dimension` - a criteria relevant for assessing quality, e.g. Completeness
 - `category` - a group of quality dimensions in which a common type of information is used as quality indicator, e.g. Inherent Data Quality
 
-Example: Metrics Schema
+##### Example: Metrics Schema
 
 ```
     "schema": {

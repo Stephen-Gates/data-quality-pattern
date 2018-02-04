@@ -2,7 +2,7 @@
   "schema": {
     "fields": [
       {
-        "name": "resource_name",
+        "name": "resource-name",
         "description": "The name of the data resource being measured",
         "type": "string",
         "constraint": {
@@ -10,7 +10,7 @@
         }
       },
       {
-        "name": "field_name",
+        "name": "field-name",
         "description": "The name of the field being measured. If null, the metric applies to the whole data resource",
         "type": "string",
         "constraint": {
@@ -18,7 +18,7 @@
         }
       },
       {
-        "name": "metric_name",
+        "name": "metric-name",
         "description": "The name of the metric",
         "type": "string",
         "constraint": {
@@ -43,11 +43,11 @@
     ],
     "foreignKeys": [
       {
-        "fields": "metric_name",
+        "fields": "metric-name",
         "reference": {
           "datapackage":  "https://github.com/Stephen-Gates/data-quality-pattern/quality-profile/tabular/metrics/datapackage.json",
           "resource": "metrics",
-          "fields": "metric_name"
+          "fields": "metric-name"
         }
       }
     ]
